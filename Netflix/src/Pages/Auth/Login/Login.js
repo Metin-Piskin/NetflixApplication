@@ -18,7 +18,7 @@ const Login = ({ navigation }) => {
     }
 
     auth().signInWithEmailAndPassword(email, password).then(authUser => {
-      navigation.replace("Home");
+      navigation.replace("BottomTab");
       setPassword('');
       setEmail("");
       console.log(authUser)
