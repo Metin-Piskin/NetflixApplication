@@ -12,25 +12,20 @@ const Tab = createBottomTabNavigator();
 import Login from './Pages/Auth/Login';
 import Sign from './Pages/Auth/Sign';
 import Home from './Pages/Home';
+import ViewMovie from './Pages/ViewMovie';
+import MyList from './Pages/MyList';
+import SearchScreen from './Pages/Search';
+import Splash from './Pages/Splash';
+import Start from './Pages/Start';
 
 const BottomTab = () => {
     return (
         <Tab.Navigator
-            tabBarOptions={{
-                activeTintColor: "white",
-                inactiveTintColor: "#5B5B5B",
-                style: {
-                    backgroundColor: '#141414',
-                    borderTopWidth: 0,
-                    elevation: 0,
-                    height: 60,
-                    paddingBottom: 10
-                },
-            }}
             screenOptions={{
+                tabBarActiveTintColor: "#fff",
+                tabBarInactiveTintColor: "#5B5B5B",
                 headerShown: false,
-                display: "flex",
-                tabBarItemStyle: { backgroundColor: '#000' }
+                tabBarStyle: { backgroundColor: '#000' }
             }}>
             <Tab.Screen name='Home' component={Home} options={{
                 tabBarIcon: ({ color }) => <AntDesign name="home" size={24} color={color} style={{ marginBottom: -10 }} />
@@ -48,6 +43,7 @@ const BottomTab = () => {
 const AuthStack = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='Start' component={Start} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Sign" component={Sign} />
         </Stack.Navigator>
@@ -64,15 +60,21 @@ const Router = () => {
     }, []);
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-                {
-                    !userSession ? (
+            {
+                !userSession ? (
+                    <Stack.Navigator screenOptions={{ headerShown: false }}>
                         <Stack.Screen name='AuthStack' component={AuthStack} />
-                    ) : (
+                    </Stack.Navigator>
+                ) : (
+                    <Stack.Navigator screenOptions={{ headerShown: false }}>
                         <Stack.Screen name='BottomTab' component={BottomTab} />
-                    )
-                }
-            </Stack.Navigator>
+                        <Stack.Screen name="ViewMovie" component={ViewMovie} />
+                        <Stack.Screen name="MyList" component={MyList} />
+                        <Stack.Screen name="Search" component={SearchScreen} />
+                        <Stack.Screen name="Splash" component={Splash} />
+                    </Stack.Navigator>
+                )
+            }
         </NavigationContainer>
     )
 }

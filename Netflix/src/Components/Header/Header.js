@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-{/*
+
 import {
   useFonts,
   Montserrat_200ExtraLight,
@@ -14,11 +14,10 @@ import {
   Montserrat_700Bold,
   Montserrat_800ExtraBold
 } from '@expo-google-fonts/montserrat';
-*/}
+
 
 const Header = ({ navigation, login, goBack, label }) => {
 
-  {/*
   let [fontsLoaded] = useFonts({
     Montserrat_200ExtraLight,
     Montserrat_300Light,
@@ -27,13 +26,19 @@ const Header = ({ navigation, login, goBack, label }) => {
     Montserrat_700Bold,
     Montserrat_800ExtraBold
   });
-*/}
+
+  let fontSize = 18;
+  let marginLeft = 15;
+  let color = 'white';
+
+
 
   const signOutUser = () => {
     auth().signOut().then(() => {
-      navigation.navigate('Login');
+      navigation.navigate('AuthStack');
     })
   }
+
 
   return (
     login ? (
@@ -62,10 +67,11 @@ const Header = ({ navigation, login, goBack, label }) => {
           {
             label && (
               <Text style={{
-                color: 'white',
-                marginLeft: 15,
+                color,
+                marginLeft,
+                fontSize,
+                fontFamily: 'Montserrat_100Thin_Italic'
                 //fontFamily: "Montserrat_400Regular",
-                fontSize: 18
               }}>{label}</Text>
             )
           }
@@ -79,11 +85,17 @@ const Header = ({ navigation, login, goBack, label }) => {
         >
           {
             goBack ? (
-              <TouchableOpacity activeOpacity={0.5}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={() => { navigation.navigate("Search") }}
+              >
                 <MaterialIcons name="search" size={30} color="white" style={{ marginRight: 15 }} />
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity activeOpacity={0.5}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={() => { navigation.navigate("Search") }}
+              >
                 <MaterialIcons name="search" size={35} color="white" style={{ marginRight: 15 }} />
               </TouchableOpacity>
             )
@@ -93,9 +105,9 @@ const Header = ({ navigation, login, goBack, label }) => {
               <TouchableOpacity onPress={signOutUser}>
                 <Image
                   style={{
-                    width: 40,
-                    height: 30,
-                    borderRadius: 20,
+                    width: 38,
+                    height: 35,
+                    borderRadius: 9,
                   }}
                   resizeMode='contain'
                   source={{ uri: 'https://occ-0-4857-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABTYctxxbe-UkKEdlMxXm4FVGD6DqTHkQ0TQ5CQJ9jbOMnG0CYxYcSICcTUQz8DrB7CpKUGpqJVMtEqksLlvSJx2ac3Ak.png?r=a41' }} />
@@ -104,9 +116,9 @@ const Header = ({ navigation, login, goBack, label }) => {
               <TouchableOpacity onPress={signOutUser}>
                 <Image
                   style={{
-                    width: 40,
+                    width: 38,
                     height: 35,
-                    borderRadius: 10,
+                    borderRadius: 9,
                   }}
                   resizeMode='contain'
                   source={{ uri: 'https://occ-0-4857-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABTYctxxbe-UkKEdlMxXm4FVGD6DqTHkQ0TQ5CQJ9jbOMnG0CYxYcSICcTUQz8DrB7CpKUGpqJVMtEqksLlvSJx2ac3Ak.png?r=a41' }} />

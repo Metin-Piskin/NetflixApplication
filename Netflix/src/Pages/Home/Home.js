@@ -11,7 +11,6 @@ import HeaderTabs from '../../Components/HeaderTabs';
 
 const Home = ({ navigation }) => {
   const [user, setUser] = useState(null);
-  const [movies, setMovies] = useState(null);
 
   useEffect(() => {
     firestore().collection('users').doc(auth().currentUser.email).onSnapshot(doc => {
@@ -22,20 +21,7 @@ const Home = ({ navigation }) => {
 
   }, [auth().currentUser])
 
-  useLayoutEffect(() => {
-    const unsubscribe =
-      firestore()
-        .collection("movies")
-        .onSnapshot((snapshot) =>
-          setMovies(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              data: doc.data(),
-            }))
-          )
-        );
-    return unsubscribe;
-  }, []);
+
 
   return (
     <>
@@ -51,7 +37,7 @@ const Home = ({ navigation }) => {
             width: '100%',
             height: (Dimensions.get('window').height * 81) / 100
           }}
-          source={{ uri: 'https://cdn.vox-cdn.com/thumbor/9PqzVk9RnfW0g22byhIyRSPDBYM=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/8832449/strangerthings.jpg' }}
+          source={{ uri: 'https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2022/05/FSkCESUWYAAThYb.jpg' }}
         >
           <LinearGradient
             style={{ height: '101%' }}
@@ -68,15 +54,13 @@ const Home = ({ navigation }) => {
             <Hero user={user} />
           </LinearGradient>
         </ImageBackground>
-        {
-          movies && (
-            <Fragment>
-              <Movies label='Popular on Netflix' item={movies} />
-              <Movies label='US Movies' item={movies} />
-              <Movies label='Crime TV Shows' item={movies} />
-            </Fragment>
-          )
-        }
+
+        <Fragment>
+          <Movies label='Popular on Netflix' navigation={navigation} />
+          <Movies label='US Movies' navigation={navigation} />
+          <Movies label='Crime TV Shows' navigation={navigation} />
+        </Fragment>
+
       </ScrollView>
     </>
   )

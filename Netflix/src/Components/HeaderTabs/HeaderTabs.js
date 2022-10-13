@@ -8,7 +8,7 @@ const HeaderTabs = ({ navigation }) => {
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: (25, 50, 0, 50),
+        padding: (0, 10, 0, 25),
         width: '100%',
       }}
     >
